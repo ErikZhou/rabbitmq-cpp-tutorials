@@ -11,6 +11,11 @@ On Debian/Ubuntu:
 
     sudo apt-get install cmake libpoco-dev
 
+On Windows:
+   vcpkg install amqpcpp, boost-asio
+   amqpcpp:x64-windows                                4.3.15#1         AMQP-CPP is a C++ library for communicating with
+   boost-asio:x64-windows                             1.78.0           Boost asio module
+
 ## Build
     
     git clone https://github.com/RPG-18/rabbitmq-cpp-tutorials.git
