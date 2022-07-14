@@ -11,7 +11,7 @@ int main(void)
 
     channel.onReady([&]()
     {
-        if(handler.connected())
+        if(handler.connected())//TODO fix connecting issue
         {
             channel.publish("", "hello", "Hello World!");
             std::cout << " [x] Sent 'Hello World!'" << std::endl;
