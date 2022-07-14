@@ -48,6 +48,10 @@ int main(int argc, const char* argv[])
     //const std::string correlation(uuid());
     //boost::uuids::uuid uuid = boost::uuids::random_generator()();
     //const std::string correlation = boost::uuids::to_string(uuid);
+    if (argc < 2) {
+        std::cout << "Usage:\nrpc_client.exe number";
+        return -1;
+    }
     const std::string correlation(uuid_cpp::generate_uuid_v4());
 
     SimplePocoHandler handler("localhost", 5672);
@@ -59,8 +63,9 @@ int main(int argc, const char* argv[])
             int msgcount,
             int consumercount)
     {
-        const char* body = "30";
-        AMQP::Envelope env(body, 2);
+        const char* body = argv[1];
+        std::string str_body(body);
+        AMQP::Envelope env(str_body.c_str(), str_body.length());
         env.setCorrelationID(correlation);
         env.setReplyTo(name);
         channel.publish("","rpc_queue",env);
