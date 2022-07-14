@@ -8,6 +8,7 @@
 
 #include <random>
 #include <sstream>
+#include <chrono>
 
 namespace uuid_cpp {
     static std::random_device              rd;
@@ -58,6 +59,9 @@ int main(int argc, const char* argv[])
 
     AMQP::Connection connection(&handler, AMQP::Login("guest", "guest"), "/");
 
+    // Record start time
+    auto start = std::chrono::high_resolution_clock::now();
+
     AMQP::Channel channel(&connection);
     AMQP::QueueCallback callback = [&](const std::string &name,
             int msgcount,
@@ -85,6 +89,10 @@ int main(int argc, const char* argv[])
         int size = message.bodySize();
         std::string body(data, size);
         std::cout<<" [.] Got "<< body <<std::endl;
+        // Record end time
+        auto finish = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = finish - start;
+        std::cout << "Elapsed time: " << 1000 * elapsed.count() << " ms\n";
         handler.quit();
     };
 
