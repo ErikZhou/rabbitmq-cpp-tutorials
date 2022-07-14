@@ -17,6 +17,9 @@ int main(void)
             std::cout << " [x] Sent 'Hello World!'" << std::endl;
             handler.quit();
         }
+        else {
+            std::cout << "not connected!\n";
+        }
     });
 
     handler.loop();
